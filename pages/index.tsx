@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { Button, Htag, Ptag, Tag } from '../components';
+import { Button, Htag, Ptag, Raiting, Tag } from '../components';
 
 
 const Home: NextPage = () => {
@@ -14,7 +14,7 @@ const Home: NextPage = () => {
       <Tag size='s' color='red'>Small red</Tag>
       <Tag size='m' color='green'>Medium grey</Tag>
       <Tag size='m' color='grey'>Medium grey</Tag>
-
+      <Raiting raiting={4}/>
     </>
   );
 };
