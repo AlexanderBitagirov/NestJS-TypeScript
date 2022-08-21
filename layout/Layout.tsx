@@ -5,19 +5,28 @@ import cn from "classnames";
 import { Header } from "./Header/Header";
 import { SideBar } from "./SideBar/SideBar";
 import { Footer } from "./Footer/Footer";
+import { FunctionComponent } from "react";
 
 
-export const Layout = ({ children}: LayoutProps):JSX.Element => {
+const Layout = ({ children}: LayoutProps):JSX.Element => {
     return(
-        <>
-        <Header/>
-        <div>
-            <SideBar/>
-            <div>
-                {children}
-            </div>
+        <div className={styles.wrapper}>
+            <Header className={styles.header}/>
+            <SideBar className={styles.sidebar}/>
+                <div className={styles.body}>
+                    {children}
+                </div>
+            <Footer className={styles.footer}/>
         </div>
-        <Footer/>
-        </>
     );
+};
+
+export const withLayout= <T extends Record<string, unknown>>(Component: FunctionComponent<T>) => {
+    return function withLayoutComponent(props: T) {
+        return (
+            <Layout>
+                <Component {...props}/>
+            </Layout>
+        );
+    };
 };
