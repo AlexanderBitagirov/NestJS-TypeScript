@@ -1,9 +1,10 @@
-{
+{	
 	"root": true,
 	"parser": "@typescript-eslint/parser",
 	"plugins": [
 		"@typescript-eslint"
 	],
+	"ignorePatterns": ["next.config.js"],
 	"rules": {
 		"semi": "off",
 		"@typescript-eslint/semi": [
