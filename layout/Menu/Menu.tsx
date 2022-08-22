@@ -3,22 +3,10 @@ import cn from "classnames";
 import { useContext } from "react";
 import { AppContext } from "../../context/app.context";
 import { FirstLevelMenuItem, PageItem } from "../../interfaces/menu.interface";
-import CoursesIcon from "./icons/courses.svg";
-import ProductsIcon from "./icons/products.svg";
-import BooksIcon from "./icons/books.svg";
-import ServicesIcon from "./icons/services.svg";
-import { PageLevelCategory } from "../../interfaces/page.interface";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { firstLevelMenu } from "../../helpers/helpers";
 
-
-const firstLevelMenu: FirstLevelMenuItem[] = [
-    {route: 'courses' , name: 'Курсы', icon: <CoursesIcon/> , id: PageLevelCategory.Courses},
-    {route: 'services' , name: 'Сервисы', icon: <ServicesIcon/> , id: PageLevelCategory.Services},
-    {route: 'books' , name: 'Книги', icon: <BooksIcon/> , id: PageLevelCategory.Books},
-    {route: 'products' , name: 'Товары', icon: <ProductsIcon/> , id: PageLevelCategory.Products}
-
-];
 
 export const Menu = ():JSX.Element => {
 
@@ -74,7 +62,7 @@ export const Menu = ():JSX.Element => {
                         </div>
                     </div>
                     );
-                })};
+                })}
             </div>
         );
     };
