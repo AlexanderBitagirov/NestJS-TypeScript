@@ -1,4 +1,3 @@
-import type { NextPage } from 'next';
 import { useState } from 'react';
 import { Button, Htag, Ptag, Rating, Tag } from '../components';
 import { withLayout } from '../layout/Layout';
@@ -20,9 +19,6 @@ function Home({menu}:HomeProps):JSX.Element {
       <Tag size='m' color='green'>Medium grey</Tag>
       <Tag size='m' color='grey'>Medium grey</Tag>
       <Rating rating={rating} isEditable setRating={setRating}/>
-      <ul>
-        {menu.map(el => (<li>{el._id.secondCategory}</li>))}
-      </ul>
     </>
   );
 }

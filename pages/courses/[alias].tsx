@@ -1,5 +1,4 @@
-import type { GetStaticPaths, GetStaticPathsContext, GetStaticPropsContext, NextPage } from 'next';
-import { useState } from 'react';
+import type { GetStaticPaths, GetStaticPropsContext } from 'next';
 import { withLayout } from '../../layout/Layout';
 import axios from "axios";
 import { MenuItem } from '../../interfaces/menu.interface';

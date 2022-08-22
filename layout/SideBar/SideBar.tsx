@@ -1,11 +1,12 @@
 import styles from "./Sidebar.module.css";
 import cn from "classnames";
 import { SideBarProps } from "./SideBar.props";
+import { Menu } from "../Menu/Menu";
 
 export const SideBar = ({...props}: SideBarProps):JSX.Element => {
     return(
         <div {...props}>
-            Sidebar
+            <Menu/>
         </div>
     );
 };
