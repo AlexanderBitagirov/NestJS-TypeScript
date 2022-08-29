@@ -6,18 +6,19 @@ import { PageLevelCategory, PageModel } from '../../interfaces/page.interface';
 import { ParsedUrlQuery } from 'querystring';
 import { CourseModel } from '../../interfaces/course.interface';
 import { firstLevelMenu } from '../../helpers/helpers';
+import { TopPageComponent } from '../../page-components';
 
 
-function Course({menu , page , courses }:CourseProps):JSX.Element {
+function TopPage({firstCategory , page , courses }:TopPageProps):JSX.Element {
 
     return (
         <>
-            {courses && courses.length}
-        </>
-    );
+            <TopPageComponent firstCategory ={firstCategory} page={page} courses={courses}/>
+        </>    
+        );
 }
 
-export default withLayout(Course);
+export default withLayout(TopPage);
 
 export const getStaticPaths: GetStaticPaths = async () => {
     
@@ -36,7 +37,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     };
 };
 
-export const getStaticProps: GetStaticProps<CourseProps> = async ({params}: GetStaticPropsContext<ParsedUrlQuery>) => {
+export const getStaticProps: GetStaticProps<TopPageProps> = async ({params}: GetStaticPropsContext<ParsedUrlQuery>) => {
     
     if(!params) {
         return {
@@ -86,7 +87,7 @@ export const getStaticProps: GetStaticProps<CourseProps> = async ({params}: GetS
 
 };
 
-interface CourseProps extends Record<string, unknown> {
+interface TopPageProps extends Record<string, unknown> {
     menu: MenuItem[];
     firstCategory: PageLevelCategory;
     page: PageModel;
