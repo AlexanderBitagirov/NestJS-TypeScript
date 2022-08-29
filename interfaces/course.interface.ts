@@ -29,7 +29,8 @@ export interface CourseModel {
     credit: number;
     oldPrice: number;
     characteristics: CourseCharacteristic[];
-    advantages: string;
+    advantages?: string;
+    disadvantages?: string;
     initialRating: number;
     createdAt: Date;
     updatedAt: Date;
@@ -40,5 +41,5 @@ export interface CourseModel {
     clicks: number;
     reviews: ReviewModel;
     reviewCount: number;
-    reviewAvg?: string;
+    reviewAvg?: number;
 }
