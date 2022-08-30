@@ -7,12 +7,16 @@ import { Tag } from "../Tag/Tag";
 import { Button } from "../Button/Button";
 import { delOfNum, priceRu } from "../../helpers/helpers";
 import { Devider } from "../Devider/Devider";
+import Image from "next/image";
 
 export const Course = ({course, className, ...props}: CourseProps):JSX.Element => {
     return(
         <Card className={styles.course}>
            <div className={styles.logo}>
-                <img src={process.env.NEXT_PUBLIC_DOMAIN + course.image} alt={course.title}/>
+                <Image src={process.env.NEXT_PUBLIC_DOMAIN + course.image}
+                        alt={course.title}
+                        width={70}
+                        height={70}/>
            </div>
            <div className={styles.title}>
                 {course.title}
@@ -22,8 +26,7 @@ export const Course = ({course, className, ...props}: CourseProps):JSX.Element =
                 {course.oldPrice && <Tag className={styles.oldPrice} color="green">{priceRu(course.price - course.oldPrice)}</Tag>}
            </div> 
            <div className={styles.credit}>
-                {priceRu(course.credit)}/
-                <span className={styles.month}>мес.</span>
+                {priceRu(course.credit)}/<span className={styles.month}>мес</span>
            </div>
            <div className={styles.rating}>
                 <Rating rating={course.reviewAvg ?? course.initialRating}/>
@@ -43,7 +46,7 @@ export const Course = ({course, className, ...props}: CourseProps):JSX.Element =
            <div className={styles.description}>
                 {course.description} 
            </div>
-           <Devider className={styles.hr}/>
+           <Devider className={cn(styles.hr, styles.hr2)}/>
            <div className={styles.feature}>
                 {course.characteristics.map(c => (
                     <div className={styles.characteristics} key={c.name}>
