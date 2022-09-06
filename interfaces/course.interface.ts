@@ -14,7 +14,7 @@ export interface ReviewModel {
     name: string;
     title: string;
     description: string;
-    raiting: number;
+    rating: number;
     createdAt: Date;
 }
 export interface CourseModel {
@@ -39,7 +39,7 @@ export interface CourseModel {
     blog: Blog;
     companyId: string;
     clicks: number;
-    reviews: ReviewModel;
+    reviews: ReviewModel[];
     reviewCount: number;
     reviewAvg?: number;
 }

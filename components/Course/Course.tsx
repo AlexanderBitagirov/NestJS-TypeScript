@@ -8,9 +8,14 @@ import { Button } from "../Button/Button";
 import { delOfNum, priceRu } from "../../helpers/helpers";
 import { Devider } from "../Devider/Devider";
 import Image from "next/image";
+import { useState } from "react";
+import { Review } from "../Review/Review";
 
 export const Course = ({course, className, ...props}: CourseProps):JSX.Element => {
-    return(
+    const [isReviewOpened, setIsReviewOpened] = useState<boolean>(false);
+    
+     return(
+     <>
         <Card className={styles.course}>
            <div className={styles.logo}>
                 <Image src={process.env.NEXT_PUBLIC_DOMAIN + course.image}
@@ -69,8 +74,21 @@ export const Course = ({course, className, ...props}: CourseProps):JSX.Element =
            <Devider className={styles.hr}/>
                 <div className={styles.actions}>
                     <Button appearance="primary">Узнать подробнее</Button>
-                    <Button appearance="ghost" arrow="right" className={styles.reviewButton}>Читать отзывы</Button>
+                    <Button appearance="ghost" 
+                            arrow={isReviewOpened ?"right" : "down"} 
+                            className={styles.reviewButton}
+                            onClick={()=> setIsReviewOpened(!isReviewOpened)}>Читать отзывы</Button>
             </div>
         </Card>
+        <Card color='blue' className={cn(styles.review, {
+          [styles.opened] : isReviewOpened,
+          [styles.closed] : !isReviewOpened
+        })}>
+          {course.reviews.map(r => (
+                <Review key={r._id} review={r}/>
+          ))}
+        </Card>
+
+     </>
     );
 };

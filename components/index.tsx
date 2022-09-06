@@ -12,3 +12,4 @@ export * from './Textarea/Textarea';
 export * from './Search/Search';
 export * from './Course/Course';
 export * from './Devider/Devider';
+export * from './Review/Review';
