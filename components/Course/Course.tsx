@@ -10,6 +10,7 @@ import { Devider } from "../Devider/Devider";
 import Image from "next/image";
 import { useState } from "react";
 import { Review } from "../Review/Review";
+import { ReviewForm } from "../ReviewForm/ReviewForm";
 
 export const Course = ({course, className, ...props}: CourseProps):JSX.Element => {
     const [isReviewOpened, setIsReviewOpened] = useState<boolean>(false);
@@ -85,10 +86,13 @@ export const Course = ({course, className, ...props}: CourseProps):JSX.Element =
           [styles.closed] : !isReviewOpened
         })}>
           {course.reviews.map(r => (
-                <Review key={r._id} review={r}/>
+               <div key={r._id}>
+                <Review review={r}/>
+                <Devider/>
+               </div> 
           ))}
+          <ReviewForm courseId={course._id}/>
         </Card>
-
      </>
     );
 };

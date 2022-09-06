@@ -149,9 +149,6 @@
     padding: 30px;
 }
 
-.review {
-}
-
 @media screen and (max-width: 1320px) {
     .course {
         grid-template-columns: 70px 30px auto 40px auto 40px 1fr;

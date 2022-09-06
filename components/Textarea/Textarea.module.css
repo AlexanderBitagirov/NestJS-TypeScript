@@ -1,6 +1,8 @@
 .input {
     padding: 7px 15px;
     
+    max-height: max-content;
+
     color: var(--black);
     border: none;
     outline-color: var(--primary);
@@ -10,6 +12,7 @@
     
     font-size: 16px;
     line-height: 22px;
+    resize: none;
     
 }
 

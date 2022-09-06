@@ -26,7 +26,7 @@ export const Menu = ():JSX.Element => {
         return (
             <>
                 {firstLevelMenu.map(m => (
-                    <div key={m.route}>
+                    <div key={m.id}>
                          <Link href={`/${m.route}`}>
                             <a>
                                 <div className={cn(styles.firstLevel, {
