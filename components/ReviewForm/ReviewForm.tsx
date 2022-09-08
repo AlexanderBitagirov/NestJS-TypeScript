@@ -11,30 +11,43 @@ import { IReviewForm } from "./ReviewForm.interface";
 
 
 export const ReviewForm = ({courseId, className, ...props}: ReviewFormProps):JSX.Element => {
-    const {register, control, handleSubmit} = useForm<IReviewForm>();
+    const { register, control, handleSubmit, formState: { errors } } = useForm<IReviewForm>();
     
     const onSubmit: SubmitHandler<IReviewForm> = (data) => console.log(data);
    
     
     return(
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={ handleSubmit(onSubmit) }>
         <div className={cn(styles.reviewForm, className, {
         })}
         {...props}>
-            <Input {...register("name")} placeholder="Имя"/>
-            <Input {...register("title")} className={styles.title} placeholder="Заголовок отзыва"/>
+            <Input 
+                {...register("name", { required: { value: true, message: "Заполните имя" } })} 
+                placeholder="Имя"
+                error={errors.name}/>
+            <Input 
+                {...register("title", { required: { value: true, message: "Заполните заголовок" } })} 
+                className={styles.title} 
+                placeholder="Заголовок отзыва"
+                error={errors.title}/>
             <div className={styles.rating}>
                 <span>Оценка:</span>
                 <Controller control={control} 
                             name="rating" 
+                            rules={{ required: { value: true, message: "Укажите рейтинг" } }}
                             render={({ field })=>(
                     <Rating isEditable
                             ref={field.ref}    
                             rating={field.value} 
-                            setRating={field.onChange}/>)}/>
+                            setRating={field.onChange}
+                            error={errors.rating}/>)}/>
 
                 </div>
-            <Textarea {...register("description")} className={styles.description} placeholder="Текст отзыва"/>
+            <Textarea 
+                {...register("description", { required: { value: true, message: "Заполните описание" } })} 
+                className={styles.description} 
+                placeholder="Текст отзыва"
+                error={errors.description}/>
             <div className={styles.submit}>
                 <Button appearance="primary">Отправить</Button>
                 <span className={styles.info}>* Перед публикацией отзыв пройдет предварительную модерацию и проверку</span>
