@@ -25,7 +25,7 @@ export const Course = ({course, className, ...props}: CourseProps):JSX.Element =
    }; 
 
      return(
-     <div className={className} {...props}>
+     <>
         <Card className={styles.course}>
            <div className={styles.logo}>
                 <Image src={process.env.NEXT_PUBLIC_DOMAIN + course.image}
@@ -106,6 +106,6 @@ export const Course = ({course, className, ...props}: CourseProps):JSX.Element =
           ))}
           <ReviewForm courseId={course._id}/>
         </Card>
-     </div>
+     </>
     );
 };

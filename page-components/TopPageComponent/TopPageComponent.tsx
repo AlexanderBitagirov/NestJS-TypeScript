@@ -3,7 +3,7 @@ import { TopPageComponentProps } from "./TopPageComponent.props";
 import styles from "./TopPageComponents.module.css";
 import { PageLevelCategory } from "../../interfaces/page.interface";
 import { SortEnum } from "../../components/Sort/Sort.props";
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { sortReducer } from "./sort.reducer";
 
 export const TopPageComponent = ({page, courses, firstCategory}: TopPageComponentProps):JSX.Element => {
@@ -14,7 +14,11 @@ export const TopPageComponent = ({page, courses, firstCategory}: TopPageComponen
         dispatchSort({type: sort});
     };
 
+    useEffect(() => {
+        dispatchSort( {type: 'reset', initialState: courses} );
+    }, [courses]);
 
+    
     return (
         <div className={styles.wrapper}>
             <div className={styles.title}>
