@@ -1,4 +1,4 @@
-import { Advantages, Course, HhData, Htag, Ptag, Sort, Tag } from "../../components";
+import { Advantages, Course, HhData, Htag, Sort, Tag } from "../../components";
 import { TopPageComponentProps } from "./TopPageComponent.props";
 import styles from "./TopPageComponents.module.css";
 import { PageLevelCategory } from "../../interfaces/page.interface";
@@ -11,8 +11,8 @@ export const TopPageComponent = ({page, courses, firstCategory}: TopPageComponen
     const [{courses: sortedCourses , sort} , dispatchSort] = useReducer(sortReducer, {courses , sort: SortEnum.Rating});
 
     const setSort = (sort: SortEnum) => {
-        dispatchSort({type: sort})
-    }
+        dispatchSort({type: sort});
+    };
 
 
     return (

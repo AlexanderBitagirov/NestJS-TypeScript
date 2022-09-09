@@ -7,6 +7,7 @@ import { ParsedUrlQuery } from 'querystring';
 import { CourseModel } from '../../interfaces/course.interface';
 import { firstLevelMenu } from '../../helpers/helpers';
 import { TopPageComponent } from '../../page-components';
+import { API } from '../../helpers/api';
 
 
 function TopPage({firstCategory , page , courses }:TopPageProps):JSX.Element {
@@ -54,7 +55,7 @@ export const getStaticProps: GetStaticProps<TopPageProps> = async ({params}: Get
     }
 
     try {
-        const { data: menu } = await axios.post<MenuItem[]>(process.env.NEXT_PUBLIC_DOMAIN + '/api/top-page/find', {
+        const { data: menu } = await axios.post<MenuItem[]>(API.topPage.find, {
             firstCategory: firstCategoryItem.id
         });
 
@@ -64,8 +65,8 @@ export const getStaticProps: GetStaticProps<TopPageProps> = async ({params}: Get
             };
         }
 
-        const { data: page } = await axios.get<PageModel>(process.env.NEXT_PUBLIC_DOMAIN + '/api/top-page/byAlias/' + params.alias);
-        const { data: courses } = await axios.post<CourseModel[]>(process.env.NEXT_PUBLIC_DOMAIN + '/api/product/find/', {
+        const { data: page } = await axios.get<PageModel>( API.topPage.byAlias + params.alias );
+        const { data: courses } = await axios.post<CourseModel[]>( API.product.find, {
             category: page.category,
             limit: 10
         });
