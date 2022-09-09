@@ -8,15 +8,24 @@ import { Button } from "../Button/Button";
 import { delOfNum, priceRu } from "../../helpers/helpers";
 import { Devider } from "../Devider/Devider";
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Review } from "../Review/Review";
 import { ReviewForm } from "../ReviewForm/ReviewForm";
 
 export const Course = ({course, className, ...props}: CourseProps):JSX.Element => {
     const [isReviewOpened, setIsReviewOpened] = useState<boolean>(false);
-    
+    const reviewRef = useRef<HTMLDivElement>(null);
+
+   const scrollToRevire = () => {
+     setIsReviewOpened(true);
+     reviewRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+     });
+   }; 
+
      return(
-     <>
+     <div className={className} {...props}>
         <Card className={styles.course}>
            <div className={styles.logo}>
                 <Image src={process.env.NEXT_PUBLIC_DOMAIN + course.image}
@@ -47,7 +56,9 @@ export const Course = ({course, className, ...props}: CourseProps):JSX.Element =
                 Кредит
            </div>
            <div className={styles.rateTitle}>
+              <a href='#href' onClick={scrollToRevire}>
                {course.reviewCount} {delOfNum(course.reviewCount, ['отзыв', 'отзыва', 'отзывов'])}
+              </a>
            </div>
            <div className={styles.description}>
                 {course.description} 
@@ -81,10 +92,12 @@ export const Course = ({course, className, ...props}: CourseProps):JSX.Element =
                             onClick={()=> setIsReviewOpened(!isReviewOpened)}>Читать отзывы</Button>
             </div>
         </Card>
-        <Card color='blue' className={cn(styles.review, {
-          [styles.opened] : isReviewOpened,
-          [styles.closed] : !isReviewOpened
-        })}>
+        <Card color='blue' 
+              className={cn(styles.review, {
+                    [styles.opened] : isReviewOpened,
+                    [styles.closed] : !isReviewOpened
+               })}
+              ref={reviewRef}>
           {course.reviews.map(r => (
                <div key={r._id}>
                 <Review review={r}/>
@@ -93,6 +106,6 @@ export const Course = ({course, className, ...props}: CourseProps):JSX.Element =
           ))}
           <ReviewForm courseId={course._id}/>
         </Card>
-     </>
+     </div>
     );
 };
