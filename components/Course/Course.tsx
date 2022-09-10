@@ -8,24 +8,39 @@ import { Button } from "../Button/Button";
 import { delOfNum, priceRu } from "../../helpers/helpers";
 import { Devider } from "../Devider/Devider";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { ForwardedRef, forwardRef, useRef, useState } from "react";
 import { Review } from "../Review/Review";
 import { ReviewForm } from "../ReviewForm/ReviewForm";
+import { motion } from 'framer-motion';
 
-export const Course = ({course, className, ...props}: CourseProps):JSX.Element => {
-    const [isReviewOpened, setIsReviewOpened] = useState<boolean>(false);
-    const reviewRef = useRef<HTMLDivElement>(null);
+export const Course = motion(forwardRef(({ course, className, ...props }: CourseProps, ref: ForwardedRef<HTMLDivElement>):JSX.Element => {
+     
+     const [isReviewOpened, setIsReviewOpened] = useState<boolean>(false);
+     const reviewRef = useRef<HTMLDivElement>(null);
 
-   const scrollToRevire = () => {
-     setIsReviewOpened(true);
-     reviewRef.current?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
+     const variants = {
+          visible: {
+               opacity: 1,
+               height: 'auto'
+          },
+          hidden: {
+               opacity: 0,
+               height: 0
+          }
+     };
+
+
+     const scrollToRevire = () => {
+          setIsReviewOpened(true);
+          
+          reviewRef.current?.scrollIntoView({
+               behavior: 'smooth',
+               block: 'start'
      });
    }; 
 
      return(
-     <>
+     <div className={className} {...props} ref={ref}>
         <Card className={styles.course}>
            <div className={styles.logo}>
                 <Image src={process.env.NEXT_PUBLIC_DOMAIN + course.image}
@@ -92,20 +107,21 @@ export const Course = ({course, className, ...props}: CourseProps):JSX.Element =
                             onClick={()=> setIsReviewOpened(!isReviewOpened)}>Читать отзывы</Button>
             </div>
         </Card>
-        <Card color='blue' 
-              className={cn(styles.review, {
-                    [styles.opened] : isReviewOpened,
-                    [styles.closed] : !isReviewOpened
-               })}
-              ref={reviewRef}>
-          {course.reviews.map(r => (
-               <div key={r._id}>
-                <Review review={r}/>
-                <Devider/>
-               </div> 
-          ))}
-          <ReviewForm courseId={course._id}/>
-        </Card>
-     </>
+        <motion.div animate={isReviewOpened ? "visible" : "hidden"} 
+                    variants={variants} 
+                    initial="hidden">
+          <Card color='blue' 
+               className={styles.review}
+               ref={reviewRef}>
+               {course.reviews.map(r => (
+                    <div key={r._id}>
+                    <Review review={r}/>
+                    <Devider/>
+                    </div> 
+               ))}
+               <ReviewForm courseId={course._id}/>
+          </Card>
+        </motion.div>
+     </div>
     );
-};
+}));

@@ -14,3 +14,4 @@ export * from './Course/Course';
 export * from './Devider/Devider';
 export * from './Review/Review';
 export * from './ReviewForm/ReviewForm';
+export * from './Up/Up';

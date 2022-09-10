@@ -8,10 +8,12 @@ import { sortReducer } from "./sort.reducer";
 
 export const TopPageComponent = ({page, courses, firstCategory}: TopPageComponentProps):JSX.Element => {
     
-    const [{courses: sortedCourses , sort} , dispatchSort] = useReducer(sortReducer, {courses , sort: SortEnum.Rating});
+    //TODO пофиксить баг, при инициализации сортировка не работает
 
+    const [{courses: sortedCourses , sort} , dispatchSort] = useReducer(sortReducer, {courses , sort: SortEnum.Rating});
+    
     const setSort = (sort: SortEnum) => {
-        dispatchSort({type: sort});
+        dispatchSort({ type: sort });
     };
 
     useEffect(() => {
@@ -27,7 +29,7 @@ export const TopPageComponent = ({page, courses, firstCategory}: TopPageComponen
                 <Sort sort={sort} setSort={setSort}/>
             </div>
             <div>
-                {sortedCourses && sortedCourses.map(c => (<Course key={c._id} course = {c}/>))}
+                {sortedCourses && sortedCourses.map(c => (<Course layout key={c._id} course = {c} />))}
             </div>
             <div className={styles.hhTitle}>
                 <Htag tag="h2">Вакансии -{page.category}</Htag>
